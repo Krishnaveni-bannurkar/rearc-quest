@@ -107,6 +107,8 @@ The same pattern was applied: data published to S3 first, then copied into Datab
 
 **Note on execution:** The pipeline was validated locally (structure and task graph). On the free Databricks tier, job cluster / serverless constraints prevented installing all packages for a full run; the workflow definition and screenshot of the pipeline in the UI confirm the DAG and settings.
 
+<img width="1234" height="613" alt="image" src="https://github.com/user-attachments/assets/12a50515-c19e-4567-94c0-408c75116fde" />
+
 **Additional assignment ideas (SQS + Lambda):**  
 To trigger reports (e.g. from Part 3) when a message lands in SQS, you could: (1) maintain a **logs table** with timestamps and have a downstream task run only when the table is updated, or (2) split into separate jobs and use a trigger condition (e.g. table populated) to start the report job. BrickFlow can orchestrate Databricks steps; SQS/Lambda would be separate AWS components that could call Databricks or read from the same tables.
 
