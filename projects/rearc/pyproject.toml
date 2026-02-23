@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "rearc"
+version = "0.1.0"
+description = "Rearc quest workflows and ETL"
+authors = ["krishnaveni.nkatte@gmail.com"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+brickflows = "^1.6"
+boto3 = "*"
+requests = "*"
+beautifulsoup4 = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,4 @@
+project_roots:
+  rearc:
+    root_yaml_rel_path: products/rearc
+version: v1
