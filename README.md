@@ -229,7 +229,7 @@ poetry install
 - [BrickFlow — Nike Engineering](https://engineering.nike.com/brickflow/v1.3.1/)
 - [BrickFlow local deploy](docs/BRICKFLOW_LOCAL_DEPLOY.md) — deploying and validating the workflow locally.
 - [Databricks secrets](docs/DATABRICKS_SECRETS.md) — S3 credentials via Databricks Secrets.
-- Cursor and AI agents were used for syntax checks and to validate understanding of quest requirements
+- Cursor and AI agents were used for syntax checks, to validate understanding of quest requirements and to format the readme document. 
 ---
 
 ## Summary
