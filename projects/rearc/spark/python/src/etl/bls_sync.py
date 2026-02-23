@@ -1,15 +1,18 @@
+#imports for the script
 import hashlib
 import boto3
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 
+#parameters - in the future they can be moved to the config file so that all the variables are in one place and can be easily changed
 user_agent = "bls-sync/1.0 (contact: krishnaveni.nkatte@gmail.com)"
 email = "krishnaveni.nkatte@gmail.com"
 index_url = "https://download.bls.gov/pub/time.series/pr/"
 prefix = "bls/pr"
 bucket = "kbannu-test1"
 
+#creating session 
 session = requests.Session()
 session.headers["User-Agent"] = user_agent
 session.headers["From"] = email
@@ -17,6 +20,7 @@ session.headers["From"] = email
 html = session.get(index_url).text
 soup = BeautifulSoup(html, "html.parser")
 
+#getting the url of the files to be found
 urls = []
 for a in soup.find_all("a", href=True):
     href = a["href"]
@@ -30,6 +34,7 @@ urls = sorted(set(urls))
 
 prefix = prefix.strip("/")
 
+#getting the metadata of the files to be found and also creating an s3 key 
 remotes = []
 for url in urls:
     path = urlparse(url).path.lstrip("/")
@@ -58,12 +63,13 @@ except Exception:
     s3 = boto3.client("s3")
 #s3 = boto3.client("s3")
 
+#checking if the file already exists in s3
 existing_s3 = {}
 resp = s3.list_objects_v2(Bucket=bucket, Prefix=prefix + "/")
 for obj in resp.get("Contents") or []:
     existing_s3[obj["Key"]] = {}
 
-
+#getting the metadata for the source last modifiesd from the s3
 for key in existing_s3:
     try:
         head = s3.head_object(Bucket=bucket, Key=key)
@@ -75,6 +81,7 @@ for key in existing_s3:
 remote_keys = {r["s3_key"] for r in remotes}
 inserted = updated = deleted = 0
 
+#Actual sync of the files to s3 requirement from step 1 : insert / upload / delete
 for r in remotes:
     key = r["s3_key"]
     existing = existing_s3.get(key)
