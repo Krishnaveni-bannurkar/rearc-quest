@@ -219,7 +219,9 @@ poetry install
 - **Config:** Move constants (buckets, prefixes, catalog/schema names) into a config file or module for easier env-specific settings.
 - **Common functions:** Extract shared logic (e.g. S3 upload, table names, cleaning patterns) into a common module to reduce duplication.
 - **Data quality:** Add DLT expectations or spark-expectations in the pipeline.
-
+- **Cluster and compute (data-volume–driven):** As data volume grows, tune cluster configuration: choose the right cluster size, number of nodes and executors, enable **autoscaling** and **auto-termination** so cost and performance scale with workload.
+- **Liquid clustering:** Enable **liquid clustering** with appropriate clustering keys on Delta tables; consider **auto liquid clustering** to keep layout optimized as data changes.
+- **Incremental and upserts:** Enable **Delta Change Data Feed (CDF)** and use **Delta merge** for incremental loads and upserts instead of full overwrites, improving efficiency and supporting history/audit use cases.
 ---
 
 ## References
@@ -227,8 +229,7 @@ poetry install
 - [BrickFlow — Nike Engineering](https://engineering.nike.com/brickflow/v1.3.1/)
 - [BrickFlow local deploy](docs/BRICKFLOW_LOCAL_DEPLOY.md) — deploying and validating the workflow locally.
 - [Databricks secrets](docs/DATABRICKS_SECRETS.md) — S3 credentials via Databricks Secrets.
-- Cursor and AI agents were used for syntax checks and to validate understanding of quest requirements; you can add a short note or separate doc with prompts used and tokens spent.
-
+- Cursor and AI agents were used for syntax checks and to validate understanding of quest requirements
 ---
 
 ## Summary
